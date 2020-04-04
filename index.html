@@ -1,0 +1,140 @@
+
+<html>
+<head>
+<meta charset="utf-8">
+<title>JSON Setlist</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900i&display=swap" rel="stylesheet">
+<style type="text/css">
+	body {margin:none;}
+	html { background-color: #E05263; border: none;}
+	#part1{font-family: Roboto; font-size: 15px; color: #FFCAB1; font-weight: 300; }
+	h1 {font-family: Roboto; font-weight: 900; text-align: center; color: #FFCAB1; padding-bottom: 10px;}
+	.singleSong {background-color: #FFCAB1; width: 300px; height: 200px; margin-bottom: 5px; display: inline-block; border-bottom: 4px solid #B24C63; font-family: Roboto; font-weight: 900; text-align: center; color: #B24C63; padding: 5px}
+	#genres {background-color: #FFCAB1; border: none; font-family: Roboto; font-weight: 300;}
+	#part4 , .part4 {font-family: Roboto; font-weight: 900; color: #FFCAB1; padding-bottom: 10px;}
+</style>
+</head>
+
+<body>
+
+<h1>The Galentines Setlist</h1>
+<p id="part2"></p><br>
+<p id="part3"></p><br>
+<form>
+	<h2 class="part4">Filter By Genre</h2>
+	<select id="genres" >
+		<option>------ SELECT A GENRE ------</option>
+		<option>RnB</option>
+		<option>Reggae</option>
+		<option>Pop</option>
+		<option>Bedroom Pop</option>
+		<option>Soul</option>
+		<option>Alternative</option>
+	</a></select>
+
+	<input style="background-color: #FFCAB1; font-family: Roboto; font-weight: 300;" type="button" value="Filter" onclick="genreSelection()">
+	<h3 class= "part4">Results: </h3>
+	<p id = "part4"></p>
+</form>
+	<script language="javascript">
+
+
+	songData = [	
+		{
+		"title": "Come Thru",
+		"artist": ["Summer Walker", "Usher"],
+		"genre": "RnB",
+		"year": 2019
+		},
+		{
+		"title": "BUSSIT",
+		"artist": ["Dreamville", "Ari Lennox"],
+		"genre": "RnB",
+		"year": 2020
+		},
+		{
+		"title": "Toast",
+		"artist": "Koffee",
+		"genre": "Reggae",
+		"year": 2019
+		},
+		{
+		"title": "Love Galore",
+		"artist": ["Sza", "Travis Scott"],
+		"genre": "RnB",
+		"year": 2017
+		},
+		{
+		"title": "Time Machine",
+		"artist": "Willow",
+		"genre": "Bedroom Pop",
+		"year": 2019
+		},
+		{
+		"title": "Something Bout the Rain",
+		"artist": "Pip Millet",
+		"genre": "RnB",
+		"year": 2019
+		},
+		{
+		"title": "Say So",
+		"artist": "Doja Cat",
+		"genre": "Pop",
+		"year": 2019
+		},
+		{
+		"title": "Molasses",
+		"artist": "Hiatus Kaiyote",
+		"genre": "Soul",
+		"year": 2015
+		},
+		{
+		"title": "She Plays Bass",
+		"artist": "beabadoobee",
+		"genre": "Alternative",
+		"year": 2019
+		},
+		{
+		"title": "Seashore",
+		"artist": "The Regrettes",
+		"genre": "Rock",
+		"year": 2017
+		}
+	]
+
+	var response = JSON.stringify(songData);
+	document.getElementById('part2').innerHTML = response;
+
+//using template literals for visualizing the data in a user-friendly way for part 3. JSON to HTML more directly. 
+
+
+	function listTemplate(song) {
+		return `
+		<div class = "singleSong">
+		<h2>${song.title}</h2>
+		<h3>Artist(s): ${song.artist}</h3>
+		<h3>Genre(s): ${song.genre}</h3>
+		<h3>Year Released: ${song.year}</h3>
+		</div>
+		`		
+	}
+	document.getElementById('part3').innerHTML = `
+	${songData.map(listTemplate).join('')}
+	`
+//this function is for part 4, I am filtering through the genres of the songs and concantenating the result to the variable that I will later display after each click.
+	function genreSelection(){
+		resultSongs = '';
+		filterSelect = document.getElementById('genres').value;
+		for (i = 0; i < songData.length; i++) {
+			if (songData[i].genre == filterSelect) {
+				resultSongs += songData[i].title + "<br>";
+			document.getElementById('part4').innerHTML = resultSongs;
+			}
+		}
+
+	}
+	
+
+</script>
+</body>
+</html>
